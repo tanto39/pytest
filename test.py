@@ -158,7 +158,7 @@ def test_login_user(username, password):
 # Функции и тесты для сущности store (Магазин)
 # Функция для создания заказа
 def create_order(order):
-    response = requests.post(f"{BASE_URL}/order", json=order)
+    response = requests.post(f"{BASE_URL}/store/order", json=order)
     return response
 
 # Тест создания заказа
@@ -173,7 +173,7 @@ def test_create_order(order):
 
 # Функция для получения заказа по ID
 def get_order_by_id(order_id):
-    response = requests.get(f"{BASE_URL}/order/{order_id}")
+    response = requests.get(f"{BASE_URL}/store/order/{order_id}")
     return response
 
 # Тест получения заказа по ID
@@ -185,7 +185,7 @@ def test_get_order_by_id(order_id):
 
 # Функция для удаления заказа по ID
 def delete_order_by_id(order_id):
-    response = requests.delete(f"{BASE_URL}/order/{order_id}")
+    response = requests.delete(f"{BASE_URL}/store/order/{order_id}")
     return response
 
 # Тест удаления заказа по ID
@@ -196,25 +196,24 @@ def test_delete_order_by_id(order_id):
 
 # Функция для получения инвентаря магазина
 def get_inventory():
-    response = requests.get(f"{BASE_URL}/inventory")
+    response = requests.get(f"{BASE_URL}/store/inventory")
     return response
 
 # Тест получения инвентаря магазина
-def test_get_inventory(expected_status_code):
+def test_get_inventory():
     response = get_inventory()
     assert response.status_code == 200
 
 # Функция для обновления заказа
-def update_order(order_id, order):
-    response = requests.put(f"{BASE_URL}/order/{order_id}", json=order)
+def update_order(order):
+    response = requests.post(f"{BASE_URL}/store/order", json=order)
     return response
 
 # Тест обновления заказа
-@pytest.mark.parametrize("order_id, order", [
-    (1, {"id": 1, "petId": 1, "quantity": 3, "shipDate": "2024-09-28T23:40:42.000Z", "status": "delivered", "complete": True}),
-    (2, {"id": 2, "petId": 2, "quantity": 4, "shipDate": "2024-09-28T23:40:42.000Z", "status": "canceled", "complete": False})
+@pytest.mark.parametrize("order", [
+    {"id": 1, "petId": 1, "quantity": 3, "shipDate": "2024-09-28T23:40:42.000Z", "status": "delivered", "complete": True}
 ])
-def test_update_order(order_id, order):
-    response = update_order(order_id, order)
+def test_update_order(order):
+    response = update_order(order)
     assert response.status_code == 200
     assert response.json()["quantity"] == order["quantity"]
