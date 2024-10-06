@@ -16,6 +16,7 @@ def create_pet(pet_id, name, status):
     return response
 
 # Тест создания нового питомца
+# Ожидаемый результат: Код ответа 200 ОК, питомец создан, данные в ответе совпадают с переданными данными
 @pytest.mark.parametrize("pet_id, name, status", [
     (1, "Doggie", "available"),
     (2, "Kitty", "sold"),
@@ -33,6 +34,7 @@ def get_pet_by_id(pet_id):
     return response
 
 # Тест получения информации о питомце по ID
+# Ожидаемый результат: Код ответа 200 ОК, питомец получен, id питомцев в ответе равен переданным id
 @pytest.mark.parametrize("pet_id", [1, 2])
 def test_get_pet_by_id(pet_id):
     response = get_pet_by_id(pet_id)
@@ -51,6 +53,7 @@ def update_pet(pet_id, name, status):
     return response
 
 # Тест обновления информации о питомце
+# Ожидаемый результат: Код ответа 200 ОК, питомец изменен, данные в ответе совпадают с переданными данными
 @pytest.mark.parametrize("pet_id, name, status", [
     (1, "DoggieUpdated", "pending"),
     (2, "KittyUpdated", "available"),
@@ -68,6 +71,7 @@ def delete_pet(pet_id):
     return response
 
 # Тест удаления питомца по ID
+# Ожидаемый результат: Код ответа 200 ОК, питомец удален
 @pytest.mark.parametrize("pet_id", [1, 2])
 def test_delete_pet(pet_id):
     response = delete_pet(pet_id)
@@ -81,6 +85,7 @@ def find_pets_by_status(status):
     return response
 
 # Тест поиска питомцев по статусу
+# Ожидаемый результат: Код ответа 200 ОК, питомец изменен, статусы в ответе совпадают с переданными статусами
 @pytest.mark.parametrize("status", ["available", "pending", "sold"])
 def test_find_pets_by_status(status):
     response = find_pets_by_status(status)
@@ -95,6 +100,7 @@ def create_user(user_data):
     return response
 
 # Тест создания нового пользователя
+# Ожидаемый результат: Код ответа 200 ОК, пользователь создан
 @pytest.mark.parametrize("user_data", [
     {"id": 1, "username": "testuser1", "firstName": "Test", "lastName": "User", "email": "testuser1@example.com", "password": "password1", "phone": "1234567890", "userStatus": 1},
     {"id": 2, "username": "testuser2", "firstName": "Test", "lastName": "User", "email": "testuser2@example.com", "password": "password2", "phone": "0987654321", "userStatus": 1}
@@ -109,6 +115,7 @@ def get_user(username):
     return response
 
 # Тест получения информации о пользователе по имени пользователя
+# Ожидаемый результат: Код ответа 200 ОК, пользователь получен, имя пользователя в ответе совпадает с переданным именем
 @pytest.mark.parametrize("username", ["testuser1", "testuser2"])
 def test_get_user(username):
     response = requests.get(f"{BASE_URL}/user/{username}")
@@ -121,6 +128,7 @@ def update_user(username, user_data):
     return response
 
 # Тест обновления информации о пользователе
+# Ожидаемый результат: Код ответа 200 ОК, пользователь изменен
 @pytest.mark.parametrize("username, user_data", [
     ("testuser1", {"firstName": "Updated", "lastName": "User"}),
     ("testuser2", {"firstName": "Updated", "lastName": "User"})
@@ -135,6 +143,7 @@ def delete_user(username):
     return response
 
 # Тест удаления пользователя по имени пользователя
+# Ожидаемый результат: Код ответа 200 ОК, пользователь удален
 @pytest.mark.parametrize("username", ["testuser1", "testuser2"])
 def test_delete_user(username):
     response = requests.delete(f"{BASE_URL}/user/{username}")
@@ -146,6 +155,7 @@ def login_user(username, password):
     return response
 
 # Тест авторизации пользователя с именем пользователя и паролем
+# Ожидаемый результат: Код ответа 200 ОК, пользователь авторизован
 @pytest.mark.parametrize("username, password", [
     ("testuser1", "password1"),
     ("testuser2", "password2")
@@ -162,6 +172,7 @@ def create_order(order):
     return response
 
 # Тест создания заказа
+# Ожидаемый результат: Код ответа 200 ОК, заказ создан, id заказов в ответе совпадают с переданными id заказа
 @pytest.mark.parametrize("order", [
     {"id": 1, "petId": 1, "quantity": 1, "shipDate": "2024-09-28T23:40:42.000Z", "status": "placed", "complete": True},
     {"id": 2, "petId": 2, "quantity": 2, "shipDate": "2024-09-28T23:40:42.000Z", "status": "approved", "complete": False}
@@ -177,6 +188,7 @@ def get_order_by_id(order_id):
     return response
 
 # Тест получения заказа по ID
+# Ожидаемый результат: Код ответа 200 ОК, заказ получен, id заказов в ответе совпадают с переданными id заказа
 @pytest.mark.parametrize("order_id", [1, 2])
 def test_get_order_by_id(order_id):
     response = get_order_by_id(order_id)
@@ -189,6 +201,7 @@ def delete_order_by_id(order_id):
     return response
 
 # Тест удаления заказа по ID
+# Ожидаемый результат: Код ответа 200 ОК, заказ удален
 @pytest.mark.parametrize("order_id", [1, 2])
 def test_delete_order_by_id(order_id):
     response = delete_order_by_id(order_id)
@@ -200,6 +213,7 @@ def get_inventory():
     return response
 
 # Тест получения инвентаря магазина
+# Ожидаемый результат: Код ответа 200 ОК, инвентарь получен
 def test_get_inventory():
     response = get_inventory()
     assert response.status_code == 200
@@ -210,6 +224,7 @@ def update_order(order):
     return response
 
 # Тест обновления заказа
+# Ожидаемый результат: Код ответа 200 ОК, заказ изменен, количество в заказе в ответе совпадает с переданным количеством в заказе
 @pytest.mark.parametrize("order", [
     {"id": 1, "petId": 1, "quantity": 3, "shipDate": "2024-09-28T23:40:42.000Z", "status": "delivered", "complete": True}
 ])
